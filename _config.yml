@@ -2,12 +2,12 @@
 title:       bfgeek
 email:       ianjkilpatrick@gmail.com
 author:      Ian Kilpatrick
-description: ""
+description: "Personal blog/site of Ian Kilpatrick."
 baseurl:     ""
 url:         "http://bfgeek.com"
 
 # Google analytics
-google_analytics:
+google_analytics: UA-57675202-1
 
 # Optional features
 animated:           false
@@ -15,10 +15,10 @@ show_related_posts: false
 show_post_footers:  false
 
 # Social icons
-show_social_icons: false
+show_social_icons: true
 github_username: bfgeek
-twitter_username:
-google_plus_id:
+twitter_username: bfgeek
+google_plus_id: +IanKilpatrick
 linkedin_username:
 bitcoin_url:
 paypal_url:
@@ -28,6 +28,6 @@ flattr_button:
 markdown:     kramdown
 #highlighter:  rouge
 permalink:    pretty
-paginate:     3
+paginate:     20
 sass:
   compressed: true
