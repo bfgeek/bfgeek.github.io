@@ -1,0 +1,38 @@
+<style>
+  .footer {
+    max-width: var(--container-max-size);
+    padding: var(--space-7) var(--container-padding-sides);
+    margin: var(--space-6) auto 8rem auto;
+  }
+  .footer a {
+    text-decoration: none;
+    color: unset;
+  }
+  .footer a:hover {
+    color: var(--color-primary);
+    transition: color 0.2s ease-in-out;
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    row-gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .link-home {
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+  }
+</style>
+
+<footer class="footer">
+  <nav>
+    <ul class="footer-links">
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/rss">RSS</a></li>
+    </ul>
+  </nav>
+</footer>

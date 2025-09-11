@@ -1,0 +1,24 @@
+{
+  "name": "nulite-starter",
+  "version": "1.0.0",
+  "description": "A minimal, elegant starter project to create a simple blog with Eleventy",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "start": "npx @11ty/eleventy --serve --quiet",
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
+    "debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
+    "benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
+  },
+  "keywords": [
+    "eleventy",
+    "starter"
+  ],
+  "author": "Diego López",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "eleventy-plugin-code-style-hooks": "^2.0.2"
+  }
+}
