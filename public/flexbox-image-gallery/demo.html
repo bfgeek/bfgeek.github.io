@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<style>
+body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-wrap: balance;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px;
+}
+
+img {
+  --ar: attr(width type(<number>)) / attr(height type(<number>));
+  width: calc(20% * var(--ar));
+  max-width: min(100%, calc(60% * var(--ar)));
+  height: auto;
+  flex-grow: calc(var(--ar));
+  border-radius: 16px;
+}
+</style>
+<img src="https://picsum.photos/id/13/500/500" width="500" height="500">
+<img src="https://picsum.photos/id/46/600/1000" width="600" height="1000">
+<img src="https://picsum.photos/id/47/900/700" width="900" height="700">
+<img src="https://picsum.photos/id/84/600/1000" width="600" height="1000">
+<img src="https://picsum.photos/id/124/1200/500" width="1200" height="500">
+<img src="https://picsum.photos/id/133/1000/1000" width="1000" height="1000">
+<img src="https://picsum.photos/id/200/800/600" width="800" height="600">
+<img src="https://picsum.photos/id/240/800/600" width="800" height="600">
+<img src="https://picsum.photos/id/244/800/500" width="800" height="500">
+<img src="https://picsum.photos/id/322/500/800" width="500" height="800">

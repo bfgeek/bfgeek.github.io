@@ -5,15 +5,13 @@
     line-height: calc(1em + 0.75rem);
   }
   html {
-    --color-background: #fffcf0;
-    --color-background-shade: #fbf3d9;
+    --color-background: #fff7fc;
+    --color-background-shade: #fff7fc;
     --color-text: #22211d;
     --color-text-shade: #575650;
-    --color-primary: #147d82;
+    --color-primary: #009dc5;
 
-    --font-family: -apple-system, BlinkMacSystemFont, "Inter", "IBM Plex Sans",
-      Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-      Segoe UI Symbol;
+    --font-family: sans-serif;
 
     --container-max-size: 75ch;
     --container-padding-sides: var(--space-4);
@@ -39,10 +37,10 @@
     --color-background-shade: #202424;
     --color-text: #d2dee1;
     --color-text-shade: #989f9f;
-    --color-primary: #62aba4;
   }
   h1 {
     font-size: var(--font-size-xl);
+    text-wrap: balance;
   }
   h2 {
     font-size: var(--font-size-lg);
@@ -62,16 +60,20 @@
     background-color: var(--color-background);
     font-size: 1rem;
     font-size: var(--font-size-base);
-    text-rendering: optimizeLegibility;
   }
   a {
     color: var(--color-primary);
   }
   img,
   picture {
+    margin: 0 auto;
     height: auto;
     max-width: 100%;
     flex-shrink: 0;
+    border: solid 1px var(--color-text);
+  }
+  iframe {
+    border: solid 1px var(--color-text);
   }
   blockquote {
     padding: 0 1em;
@@ -102,6 +104,9 @@
     background: var(--color-background-shade);
     --prism-background: var(--color-background-shade);
     --prism-font-size: var(--font-size-xs);
+  }
+  p {
+    margin-block: var(--space-2);
   }
   code {
     font-size: var(--font-size-xs);

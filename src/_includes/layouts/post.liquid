@@ -15,29 +15,6 @@ layout: layouts/default.liquid
   {{ content }}
 </section>
 
-{% assign similar = collections.posts | similarPosts: page.inputPath, tags %} {%
-if similar.length > 0 %}
-<section class="related">
-  <h2 class="related-title">You might also enjoy</h2>
-  <ul class="related-posts">
-    {% for post in similar limit: 2 %}
-    <li>
-      <a class="related-article" href="{{ post.url }}">
-        <h3 class="related-article-title">{{ post.data.title }}</h3>
-        <p class="related-article-description">
-          Whenever I buy things I try to prioritize cost per use. Sometimes I
-          consider other priorities such as cost per smile, cost per thrill,
-          cost per externality, and cost per lesson. Cost per use Cost per use
-          is a heuristic that helps me make decisions about most non-perishable
-          purchases such... Keep&nbsp;reading&nbsp;→
-        </p>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %} {% include "css/prism.liquid" %}
-
 <style>
   .post-header {
     margin-bottom: var(--space-5);
@@ -80,33 +57,6 @@ if similar.length > 0 %}
   .post-container h4 + *,
   .post-container h5 + * {
     margin-top: var(--space-2);
-  }
-  .related {
-    margin-top: var(--space-8);
-  }
-  .related-posts {
-    list-style: none;
-  }
-  .related-article + .related-article {
-    margin-top: var(--space-4);
-  }
-  .related-article {
-    padding: var(--space-2) 0;
-    color: var(--color-text);
-    text-decoration: unset;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-  .related-article-title {
-    transition: color 0.2s ease-in-out;
-  }
-  .related-article:hover .related-article-title {
-    color: var(--color-primary);
-  }
-  .related-article-description {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-shade);
   }
   :root {
     --prism-foreground: #393a34;
