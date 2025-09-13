@@ -9,8 +9,8 @@ I'm a software engineer based in the Bay Area, California. Originally from Melbo
 
 I currently [work](https://chromiumdash.appspot.com/commits?user=ikilpatrick) on Blink/Chromium focusing on CSS Layout.
 I've touched/worked on almost all layout code within Blink including (but not limited to):
- - CSS Container Queries
  - Anchor Positioning
+ - Container Queries
  - Flexbox
  - Grid
  - Tables
@@ -19,8 +19,10 @@ I've touched/worked on almost all layout code within Blink including (but not li
  - Flow layout
  - Replaced layout
 
-Prior to Blink I worked as a Frontend Engineer to Google Docs/Drive.
+Prior to Blink I worked as a Frontend Engineer on Google Docs/Drive.
 
 I can be found at:
- - [https://github.com/bfgeek](https://github.com/bfgeek)
  - [https://bsky.app/profile/bfgeek.bsky.social](https://bsky.app/profile/bfgeek.bsky.social)
+ - [https://github.com/bfgeek](https://github.com/bfgeek)
+
+This site is built with [Eleventy](https://www.11ty.dev/) based on [Nulite](https://github.com/codingpotions/nulite).
