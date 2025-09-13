@@ -1,6 +1,7 @@
 ---
 title: Exploiting flex-grow for an Image Gallery
-description: 
+description: How to build a full-bleed Image Gallery with flexbox.
+hero: hero.jpg
 tags:
   - software
 ---

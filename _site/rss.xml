@@ -5,7 +5,7 @@
   <link href="rss.xml" rel="self" />
   <link href="https://bfgeek.com/" />
   <updated>
-    2025-09-13T03:38:20Z
+    2025-09-13T17:49:35Z
   </updated>
   <id>https://bfgeek.com/</id>
   <author>
@@ -14,7 +14,7 @@
   <entry>
     <title>Exploiting flex-grow for an Image Gallery</title>
     <link href="/flexbox-image-gallery/" />
-    <updated>2025-09-13T03:38:20Z</updated>
+    <updated>2025-09-13T17:49:35Z</updated>
     <id>/flexbox-image-gallery/</id>
     <content xml:lang="" type="html">
       <img src="hero.jpg" width="1706" height="1350">
