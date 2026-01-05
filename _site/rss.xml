@@ -5,12 +5,149 @@
   <link href="rss.xml" rel="self" />
   <link href="https://bfgeek.com/" />
   <updated>
-    2025-09-13T17:49:35Z
+    2026-01-05T04:18:14Z
   </updated>
   <id>https://bfgeek.com/</id>
   <author>
     <name>Ian Kilpatrick</name>
   </author>
+  <entry>
+    <title>Things I'm proud of in 2025</title>
+    <link href="/2025-review/" />
+    <updated>2026-01-05T04:18:14Z</updated>
+    <id>/2025-review/</id>
+    <content xml:lang="" type="html">
+      <p>This started off as a general &quot;2025 in-review&quot; but ended up too boring and too
+long, so here are just a handful of things I'm proud of last year. These aren't
+necessarily the most important work I did, or the most &quot;impactful&quot;, but things
+that gave me joy, and hopefully will pay dividends in the future.</p>
+<img src="hero.jpg" width="2509" height="1671">
+<h3>flex-wrap: balance</h3>
+<p>I spent a month or so implementing <code>flex-wrap: balance</code>. A lot of this time was
+just spending time trying to understand different academic papers which
+implement different solutions to the
+<a href="https://en.wikipedia.org/wiki/Knuth%E2%80%93Plass_line-breaking_algorithm">Knuth-Plass line-breaking problem</a>.</p>
+<p>In the end, some of the solutions were too difficult to understand (research
+papers often gloss over important details, have poorly named variables, <a href="https://github.com/golang/go/blob/f8ee0f84753b22254d217bf28ce8ecca7db7025c/src/go/doc/comment/text.go#L307-L309">and
+also have bugs</a>),
+so I ended up <a href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/layout/flex/flex_line_breaker.cc;l=21-55;drc=ed470f480a83a5a9e1b10eb186b225ab7bc376c1">implementing something</a>
+different/new instead. I primarily did this so that it will be maintainable, at
+some point someone might find an issue with the algorithm I used and will need
+to fix it.</p>
+<p>I settled on something that was <code>O(N)</code> in the common case, and I think converges
+to <code>O(Nlog(N))</code> in the worst case (the naive solution is <code>O(N^2)</code> <a href="https://bsky.app/profile/randomascii.bsky.social/post/3lk4c6st7nc2e">which is truly
+the worst complexity</a>).</p>
+<p>Many people have wanted this feature since ~forever - hopefully we can give
+this to developers soon.</p>
+<p>I use <code>flex-wrap: balance</code> in my other <a href="https://bfgeek.com/flexbox-image-gallery/">blog
+post</a> this year to build an image
+gallery with flex.</p>
+<img src="balance.jpg" width="1706" height="1350">
+<h3>Flexbox Precision Issues</h3>
+<p>Rounding errors typically don't matter that much for most applications. They do
+in layout engines, however, as it often results in a &quot;gap&quot; between the content of
+an element, and the element's border. This (rightfully) infuriates people.</p>
+<p>Web layout engines use <a href="https://en.wikipedia.org/wiki/Fixed-point_arithmetic">fixed-point
+arithmetic</a>, (instead of
+floating-point) so when you divide a layout number by an integer you end up
+with a remainder.</p>
+<p>Fixed-point is used as floating-point gets more inaccurate the further away from
+zero you get leading to gaps and other layout issues (someday I'll write a
+&quot;floating-point is the
+<a href="https://www.simonandschuster.com/series/The-Worst!-Series">worst</a>&quot; blog post).</p>
+<p>Previously we discarded this remainder, and as such resulted in gaps when you
+used <code>justify-content: space-between</code> on a flexbox as one example.</p>
+<p>I implemented a <a href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/layout/geometry/layout_unit_diffuser.h;drc=f7eff366e22a141571facc94d9352064689b5143">&quot;diffuser&quot;</a>
+which can diffuse/distribute the remainder over N buckets in a &quot;nice&quot; way.
+Under the hood this uses the core component of <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Bresenham's line drawing
+algorithm</a> which is
+a fun 2D graphics cross-over.</p>
+<p>The other precision issue I worked on was rounding issues within the
+<a href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/layout/flex/line_flexer.cc;l=115-137;drc=137e3e7bc23789602d3a2e3db2ffa3766ccec71f">floating-point calculation</a>
+of how flex-grow/flex-shrink are used. The solution I ended up with is actually
+used within Gecko's <a href="https://searchfox.org/firefox-main/rev/21d2b7dcadb4f3d8789b84364a70ce103896047c/layout/generic/nsFlexContainerFrame.cpp#3247-3249">flex implementation</a>;
+in hindsight, I should have read that first.</p>
+<p>It works by calculating the fraction of the remaining available space (instead
+of the total available space), which converges without underflow or overflow.</p>
+<p>Fixing both these precision issues resulted in a non-trival number of bugs fixed.</p>
+<h3>The SVG Viewport Dependence Optimization</h3>
+<p>This was my first substantial optimization change for the year, as well as a
+nice win code complexity wise. In the end it was only worth about 0.1% on
+Speedometer3 but <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6173723/8/third_party/blink/renderer/core/svg/svg_element.cc">removed a bunch of complex
+logic</a>
+maintaining HashMap on a hot codepath.</p>
+<p><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6168835">This optimization</a>
+essentially removed a HashMap containing elements which had geometry which
+depended on the SVG viewport (<code>&lt;rect width=&quot;50%&quot;&gt;</code>) as one example. It replaced
+it with a couple of bits computed during layout instead.</p>
+<p>Many performance/code-complexity improvements I've made within Blink have been
+just removing HashMaps. It’s an interesting phenomenon, lots of developers will
+reach for HashMaps as they are &quot;fast&quot; O(1) insertion/removal is hard to beat,
+but often the slowness is caused by a piece of code looping over every element
+within the map (making it just a fancy list at that point), or a HashMap placed
+on a hotpath where the insert and contain operations eat CPU cycles.</p>
+<p>The logic for maintaining these HashMaps are often very complex and fragile,
+and in my experience leads to bugs in browser engines.</p>
+<p>Maybe one day I'll write a &quot;HashMaps are the
+<a href="https://www.simonandschuster.com/series/The-Worst!-Series">worst</a>&quot; blog post
+detailing this further.</p>
+<h3>Fixing <code>&lt;video&gt;</code> with <code>aspect-ratio: 4/3 auto</code></h3>
+<p>There has been a <a href="https://github.com/w3c/csswg-drafts/issues/7524">relatively bad
+bug</a> in Blink with the
+<code>&lt;video&gt;</code> element and the aspect-ratio property, namely we ignored the
+aspect-ratio coming from a video once it had loaded.</p>
+<p>The issue with fixing this bug was that every engine did something different,
+and since time immemorial the <code>&lt;video&gt;</code> element has had a default
+<code>aspect-ratio</code> of <code>2:1</code>.</p>
+<p>There were many web-platform-tests <a href="https://github.com/web-platform-tests/wpt/pull/54365/files">asserting this
+behaviour</a>, as
+everyone actually did the same thing for the basic case.</p>
+<p>The final fix was <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6641808/5/third_party/blink/renderer/core/layout/layout_video.cc">very
+straight-forward</a>,
+but first required <a href="https://github.com/w3c/csswg-drafts/issues/12053">getting everyone to
+agree</a> that everyone was
+wrong, and us proving that the proposed change was web-compatible (fortunately
+<a href="https://www.hyrumslaw.com/">Hyrum's Law</a> didn't apply today).</p>
+<h3>Other engines implementing &quot;block-in-inline&quot;</h3>
+<p>A few years ago we removed a significant code-complexity burden from Blink
+which is known as &quot;inline-splitting&quot;. We <a href="https://webkit.org/blog/115/webcore-rendering-ii-blocks-and-inlines/#:~:text=Blocks%20inside%20Inline%20Flows">inherited
+this</a>
+from WebKit and caused major issues for us (and a security issue or two). The
+CSS2 spec also (unhelpfully) <a href="https://www.w3.org/TR/CSS2/visuren.html#anonymous-block-level:~:text=are%20broken%20around%20the%20block%2Dlevel%20box">suggests that
+engines</a>
+should implement this problem this way.</p>
+<p>Why it's bad is a whole &quot;Ian rants at you for an hour&quot; type scenario - so let's
+not get into that today.</p>
+<p>We've since ripped this code out, and now both
+<a href="https://bugs.webkit.org/show_bug.cgi?id=303236">WebKit</a> and
+<a href="https://github.com/servo/servo/pull/41492">Servo</a> appear to be implementing
+this approach as well last year (hurray!) and this should fix some well known
+bugs.</p>
+<p>I don’t think I can claim the original idea, (it potentially was a suggestion from
+an EdgeHTML engineer), but I believe it is evidence that working in the open,
+and writing down how/why you did something can help out others in the same
+space later on.</p>
+<h3>Merging Anonymous Table Parts</h3>
+<p>My final piece of work in 2025 was trying to fix a cluster of issues caused by
+not merging anonymous table-parts correctly.</p>
+<p>When you have an element with <code>display: table-cell</code> it implicitly creates a
+<code>table</code>, <code>table-section</code>, <code>table-row</code> surrounding it. If you have two <code>display: table-cell</code>s next to each other they belong to the same anonymous table, etc.</p>
+<p>We had a long standing issue that when you removed or changed the <code>display</code> of
+an element, we didn't &quot;merge&quot; these contiguous anonymous table objects correctly.</p>
+<p>There have been attempts to fix this within Blink before, but ended up causing
+crashes and other issues. I spent a bunch of pre-work fixing things that might
+have caused crashes previously, and <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7244131">landed a
+patch</a> to
+merge these objects. This should be out in the wild in February (so fingers
+crossed), and should fix a non-trivial amount of bugs for web-developers.</p>
+<hr>
+<p>There are lots of other things I did work-wise that didn't make the cut
+(helping ship width:stretch, CSS anchor positioning fixes, various performance
+optimizations, removing <code>-webkit-box</code> quirks).</p>
+<p>Let's see where 2026 takes us!</p>
+
+    </content>
+  </entry>
   <entry>
     <title>Exploiting flex-grow for an Image Gallery</title>
     <link href="/flexbox-image-gallery/" />
