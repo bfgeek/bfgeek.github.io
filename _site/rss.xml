@@ -5,12 +5,128 @@
   <link href="rss.xml" rel="self" />
   <link href="https://bfgeek.com/" />
   <updated>
-    2026-01-05T04:18:14Z
+    2026-07-19T22:29:40Z
   </updated>
   <id>https://bfgeek.com/</id>
   <author>
     <name>Ian Kilpatrick</name>
   </author>
+  <entry>
+    <title>What is Product Quality?</title>
+    <link href="/product-quality/" />
+    <updated>2026-07-19T22:29:40Z</updated>
+    <id>/product-quality/</id>
+    <content xml:lang="" type="html">
+      <p>In my experience product quality is an extremely poorly understood concept in organisations.</p>
+<figure>
+  <img src="hero.jpg" width="1408" height="768">
+  <figcaption>A Gemini generated image of the scene from <a href="https://www.youtube.com/watch?v=N9wsjroVlu8">Office Space</a> smashing the printer.</figcaption>
+</figure>
+<p>Typically there isn’t a shared understanding of what it means. Different people
+have different mental models. As a result two people may both believe they are
+improving product quality, but believe the other people are working on
+something futile.</p>
+<p>Let’s see what <a href="https://en.wikipedia.org/wiki/Quality_(business)">Wikipedia has to say</a>:</p>
+<blockquote>
+<p>In business, engineering, and manufacturing, quality has a pragmatic
+interpretation as the conformity of something (goods or services); it is
+defined as being suitable for the intended purpose (fitness for purpose) while
+satisfying customer expectations.</p>
+</blockquote>
+<p>Great - thanks for that word soup.</p>
+<p>As an exercise for you the reader - ask yourself how you define quality in
+your product. Ask your colleagues. Better yet, if you really want a fun
+exercise, ask your leadership - see if they come up with a similar word soup.</p>
+<p>Your answers will likely vary wildly. Instead many organisations will agree on
+some vanity metrics. These might include:</p>
+<ul>
+<li>Number of bugs open</li>
+<li>Latency at the 99%-ile</li>
+<li>User churn rate</li>
+<li>CSAT (Customer Satisfaction Score)</li>
+</ul>
+<p>These metrics aren't bad in themselves, but they are proxies for quality.</p>
+<p>You might be thinking to yourself - “Okay smarty-pants, what is quality then?”
+I'd argue it is very simple, but difficult to measure.</p>
+<blockquote>
+<p><strong>Product quality is how the customer feels about your product - what emotions
+does your product produce when used?</strong></p>
+</blockquote>
+<p>That's it. That's the whole ball game. If you squint other definitions match
+this, but not before they've confused the hell out of everyone.</p>
+<p>Now we get to the hard bit. What emotions do you want your customer to feel
+about your product?</p>
+<p>Broadly speaking emotions can be grouped into “positive” (<em>delight</em>, <em>pride</em>,
+<em>interest</em>) and “negative” (<em>annoyance</em>, <em>irritation</em>, <em>fear</em>, <em>worry</em>).</p>
+<p>The first thing you probably want to optimize for is to ensure your product
+doesn’t trigger <em><strong>any</strong></em> major negative emotions. A single major negative
+emotion can completely crowd out a dozen positive ones.</p>
+<p>For example - if you produce a phone which <a href="https://en.wikipedia.org/wiki/Samsung_Galaxy_Note_7#Battery_explosions_and_recalls">spontaneously
+combusts</a>
+- even if the customer really loved the design/color - they’d be hard pressed
+to ever trust your brand again.</p>
+<p>A great recent example is <a href="https://www.youtube.com/watch?v=1WiQAOmESH0">Engineering Explained’s review of the Lucid
+Air</a>. I implore you to watch this
+video, and see the range of negative emotions. He bought this car and genuinely
+believed this was the “best engineered vehicle the world has ever seen”. Jason
+likely was excited/elated/etc by his new purchase. Only for a wave of negative
+emotions to push those out.</p>
+<p>What does this mean for you?</p>
+<p>You should deeply care when customers are <em>frustrated</em>/<em>irritated</em>/<em>annoyed</em> by your
+product. If you are trying to improve product quality, this is the first thing
+you should focus on. Have a product that doesn’t reliably turn on the lights
+when asked? You should probably fix that before anything else.  Have a product
+that takes 10 seconds to respond to a query? You should probably fix that.</p>
+<p>From this you can start building proxy metrics. E.g. latency at the 99%-ile
+might matter! (Especially if it's 10 seconds!) But it might not matter
+anymore once it's below 200ms. (What matters performance wise is a whole
+separate blogpost which I should write someday).</p>
+<p>The <em><strong>rate</strong></em> of incoming bug reports is also typically a good metric. “How
+fast are people filing bugs compared to the last version?” (Assuming the way
+people file bugs between versions is exactly the same).</p>
+<p>An important thing to note here is that if a customer feels <em><strong>no emotion</strong></em>
+that is a <em><strong>good thing</strong></em>. If a customer successfully pays some bill and feels
+absolutely nothing, that’s great! It means that the experience was
+frictionless and you made it as easy as possible.</p>
+<p>Minor annoyances are also okay. If an animation occasionally stutters or a
+setting is buried a couple of levels deep, that’s usually fine—as long as the
+majority of your customers aren’t experiencing it. You shouldn’t go on a
+crusade to ensure there are absolutely no negative emotions, you need to spend
+your time wisely, focus on the major/severe issues (even if limited to a few
+customers) or widespread ones.</p>
+<p>Once a product has a solid foundation (your customer doesn’t want to throw your
+product out a window), you can start to care about the minor annoyances if
+needed, and the positive emotions.</p>
+<p>A design refresh can really matter! It can take something boring to use and
+make it delightful (think about how fun tapping a like button was the first
+time popping up little hearts).
+But this shouldn’t be at the cost of making the product harder to use and
+frustrating customers.</p>
+<p>Marketing really matters too! It can predispose the customer into feeling
+excitement or anticipation when first using your product. This is also why the
+OOBE (Out of Box Experience) is so important. Your first interaction with the
+product predisposes the customer.</p>
+<p>However a common trap for organisations is to believe that the positive
+emotions e.g. triggering delight is the only thing that matters, and believe
+that if customers “love” a product enough they will overlook the desire to
+throw it out the window.</p>
+<p>This isn’t the case.</p>
+<p>So what should you do? Firstly make sure that everyone has a shared
+understanding of what you are optimizing for. As I’ve argued for here I think a
+customer's emotions define product quality. But you should get everyone singing
+from the same hymn sheet.</p>
+<p>Next ensure that your proxy metrics (latency, churn, bug rate) actually match
+this shared understanding. One metric I hate for example is open bugs, the
+metric you should actually care about is incoming bug rate (even if those
+issues are merged into others).</p>
+<p>Finally, when it comes to prioritization, use this quality framework to
+advocate for what your customer actually needs - rather than a vanity project
+that will be deprecated in six months.</p>
+<p>Questions/thoughts/comments? Reach out to me on
+<a href="https://bsky.app/profile/bfgeek.bsky.social">BlueSky</a>.</p>
+
+    </content>
+  </entry>
   <entry>
     <title>Things I'm proud of in 2025</title>
     <link href="/2025-review/" />
